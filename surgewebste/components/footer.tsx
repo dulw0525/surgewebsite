@@ -48,61 +48,8 @@ export function Footer() {
 
             {/* QR Codes */}
             <div className="flex items-center justify-center gap-8 sm:gap-12">
-              <div className="flex flex-col items-center gap-3">
-                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-xl bg-card border border-border p-3 hover:border-primary/50 transition-colors">
-                  <div className="w-full h-full bg-foreground rounded-lg flex items-center justify-center relative overflow-hidden">
-                    {/* QR Code Placeholder Pattern */}
-                    <svg viewBox="0 0 100 100" className="w-full h-full p-2">
-                      <rect fill="white" width="100" height="100"/>
-                      {/* QR code pattern simulation */}
-                      <rect fill="black" x="10" y="10" width="25" height="25"/>
-                      <rect fill="white" x="15" y="15" width="15" height="15"/>
-                      <rect fill="black" x="18" y="18" width="9" height="9"/>
-                      
-                      <rect fill="black" x="65" y="10" width="25" height="25"/>
-                      <rect fill="white" x="70" y="15" width="15" height="15"/>
-                      <rect fill="black" x="73" y="18" width="9" height="9"/>
-                      
-                      <rect fill="black" x="10" y="65" width="25" height="25"/>
-                      <rect fill="white" x="15" y="70" width="15" height="15"/>
-                      <rect fill="black" x="18" y="73" width="9" height="9"/>
-                      
-                      {/* Data modules */}
-                      <rect fill="black" x="40" y="10" width="5" height="5"/>
-                      <rect fill="black" x="50" y="10" width="5" height="5"/>
-                      <rect fill="black" x="40" y="20" width="5" height="5"/>
-                      <rect fill="black" x="45" y="25" width="5" height="5"/>
-                      <rect fill="black" x="55" y="20" width="5" height="5"/>
-                      
-                      <rect fill="black" x="10" y="40" width="5" height="5"/>
-                      <rect fill="black" x="20" y="45" width="5" height="5"/>
-                      <rect fill="black" x="10" y="50" width="5" height="5"/>
-                      <rect fill="black" x="25" y="55" width="5" height="5"/>
-                      
-                      <rect fill="black" x="40" y="40" width="5" height="5"/>
-                      <rect fill="black" x="50" y="45" width="5" height="5"/>
-                      <rect fill="black" x="45" y="50" width="5" height="5"/>
-                      <rect fill="black" x="55" y="55" width="5" height="5"/>
-                      
-                      <rect fill="black" x="65" y="40" width="5" height="5"/>
-                      <rect fill="black" x="75" y="45" width="5" height="5"/>
-                      <rect fill="black" x="85" y="50" width="5" height="5"/>
-                      <rect fill="black" x="70" y="55" width="5" height="5"/>
-                      
-                      <rect fill="black" x="40" y="70" width="5" height="5"/>
-                      <rect fill="black" x="50" y="75" width="5" height="5"/>
-                      <rect fill="black" x="60" y="70" width="5" height="5"/>
-                      <rect fill="black" x="55" y="80" width="5" height="5"/>
-                      
-                      <rect fill="black" x="70" y="70" width="5" height="5"/>
-                      <rect fill="black" x="80" y="75" width="5" height="5"/>
-                      <rect fill="black" x="75" y="85" width="5" height="5"/>
-                      <rect fill="black" x="85" y="80" width="5" height="5"/>
-                    </svg>
-                  </div>
-                </div>
-                <span className="text-sm text-muted-foreground font-medium">{t.footer.ios}</span>
-              </div>
+              <img src="/ios-qr.png" alt="iOS Download" className="w-28 h-28 sm:w-32 sm:h-32 rounded-xl border border-border" />
+              <span className="text-sm text-muted-foreground font-medium">{t.footer.ios}</span>
               <div className="flex flex-col items-center gap-3">
                 <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-xl bg-card border border-border p-3 hover:border-primary/50 transition-colors">
                   <div className="w-full h-full bg-foreground rounded-lg flex items-center justify-center relative overflow-hidden">
