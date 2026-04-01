@@ -22,24 +22,38 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // 模拟提交
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    
-    // 重置表单
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({
-        name: "",
-        phone: "",
-        email: "",
-        company: "",
-        message: "",
+
+    try {
+      const response = await fetch('https://surge.insbean.com/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       })
-    }, 3000)
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setIsSubmitted(true)
+        // 重置表单
+        setTimeout(() => {
+          setIsSubmitted(false)
+          setFormData({
+            name: "",
+            phone: "",
+            email: "",
+            company: "",
+            message: "",
+          })
+        }, 3000)
+      } else {
+        alert(result.error || '提交失败，请稍后重试')
+      }
+    } catch (error) {
+      console.error('Submission error:', error)
+      alert('网络错误，请检查网络连接后重试')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

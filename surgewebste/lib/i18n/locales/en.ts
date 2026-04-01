@@ -40,7 +40,7 @@ export const en: Translations = {
     badge: 'Features',
     title: 'For Finance & Insurance',
     subtitle: 'A Comprehensive AI Empowerment Platform',
-    coreCapability: 'Core Capability',
+    coreCapability: 'Core Capabilities',
     aiWorkflowTitle: 'AI-Driven Intelligent Workflow',
     aiWorkflowDesc: 'From client communication to solution design, from compliance checks to data analysis. Juliu AI runs through your entire workflow, exponentially enhancing your professional capabilities.',
     userCount: '10,000+ users are using',
@@ -81,6 +81,69 @@ export const en: Translations = {
       analyzing: 'Analyzing client needs...',
       generating: 'Generating proposal',
       completed: 'Proposal completed',
+      content: {
+        customerProfile: {
+          title: '[Customer Profile Analysis]',
+          age: 'Age: 35, career on the rise',
+          family: 'Family: Married, one child (5 years old)',
+          income: 'Annual income: ~450,000 RMB',
+          insurance: 'Existing coverage: Basic social insurance only, no commercial insurance',
+        },
+        riskAssessment: {
+          title: '[Risk Assessment]',
+          desc: 'This client is a typical family pillar with "elderly above and children below", requiring focus on:',
+          points: [
+            'Critical illness risk - Recommended coverage: 500,000+ RMB',
+            'Accident risk - Need to cover mortgage balance',
+            'Children\'s education fund - Recommend early planning',
+          ],
+        },
+        recommendation: {
+          title: '[Product Configuration Recommendations]',
+          criticalCare: {
+            title: '1. Critical Illness Insurance',
+            product: 'Recommended: Multi-payout critical illness insurance',
+            coverage: 'Coverage: 500,000 RMB (covers 3-5 years income loss)',
+            payment: 'Payment: 30-year term, ~8,500 RMB/year',
+          },
+          medical: {
+            title: '2. Medical Insurance',
+            product: 'Recommended: Million-yuan medical + mid-tier medical insurance',
+            coverage: 'Coverage: Hospitalization, outpatient surgery, special outpatient',
+            payment: 'Premium: ~1,200 RMB/year',
+          },
+          accident: {
+            title: '3. Accident Insurance',
+            product: 'Recommended: Comprehensive accident insurance',
+            coverage: 'Coverage: 1M death/disability + 50K medical',
+            payment: 'Premium: ~300 RMB/year',
+          },
+          life: {
+            title: '4. Term Life Insurance',
+            product: 'Recommended: Term life insurance (until age 60)',
+            coverage: 'Coverage: 2M RMB (covers mortgage + family expenses)',
+            payment: 'Premium: ~2,000 RMB/year',
+          },
+        },
+        summary: {
+          title: '[Budget Summary]',
+          total: 'Total annual premium: ~12,000 RMB',
+          ratio: 'Percentage of income: 2.7% (healthy range)',
+        },
+        script: {
+          title: '[Communication Script Suggestions]',
+          opening: 'Opening: "Mr. Zhang, based on your family situation, I\'ve customized a protection plan that controls risks without burdening your family."',
+          closing: 'Closing: "This plan costs only 33 RMB per day, about the price of a cup of coffee, yet provides comprehensive protection for your entire family."',
+        },
+        notes: {
+          title: '[Important Notes]',
+          points: [
+            'Confirm health declaration status before purchasing',
+            'Recommend prioritizing protection products before investment-type products',
+            'Coverage can be adjusted based on client\'s actual budget',
+          ],
+        },
+      },
     },
     customerLeads: {
       badge: 'Customer Leads',

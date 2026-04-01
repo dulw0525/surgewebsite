@@ -38,34 +38,63 @@ function CustomerNetworkDemo() {
     inactive: '#F9A8D4',  // Pink
   }
 
-  // English names
-  const names = [
-    'Michael', 'Sarah', 'David', 'Emma', 'James', 'Olivia', 'William', 'Sophia',
-    'Daniel', 'Emily', 'Alex', 'Grace', 'Ryan', 'Chloe', 'Lucas', 'Mia',
-    'Ethan', 'Ava', 'Noah', 'Isabella', 'Liam', 'Charlotte', 'Benjamin', 'Amelia',
-    'Henry', 'Harper', 'Sebastian', 'Ella', 'Jack', 'Luna', 'Oliver', 'Scarlett',
-    'Jacob', 'Victoria', 'Mason', 'Aria', 'Logan', 'Riley', 'Aiden', 'Zoey',
-    'Owen', 'Lily', 'Elijah', 'Hannah', 'Carter', 'Nora', 'Jayden', 'Stella',
-    'Luke', 'Violet', 'Gabriel', 'Aurora', 'Isaac', 'Savannah', 'Lincoln', 'Audrey',
-    'Nathan', 'Brooklyn', 'Caleb', 'Claire', 'Leo', 'Skylar', 'Adrian', 'Lucy',
-    'Eli', 'Anna', 'Ezra', 'Samantha', 'Aaron', 'Caroline', 'Carson', 'Genesis',
-    'Hudson', 'Aaliyah', 'Connor', 'Kennedy', 'Julian', 'Kinsley', 'Landon', 'Allison'
-  ]
+  // Localized names based on current language
+  const { locale } = useI18n()
+  const getNames = () => {
+    if (locale === 'en') {
+      return [
+        'Michael', 'Sarah', 'David', 'Emma', 'James', 'Olivia', 'William', 'Sophia',
+        'Daniel', 'Emily', 'Alex', 'Grace', 'Ryan', 'Chloe', 'Lucas', 'Mia',
+        'Ethan', 'Ava', 'Noah', 'Isabella', 'Liam', 'Charlotte', 'Benjamin', 'Amelia',
+        'Henry', 'Harper', 'Sebastian', 'Ella', 'Jack', 'Luna', 'Oliver', 'Scarlett',
+        'Jacob', 'Victoria', 'Mason', 'Aria', 'Logan', 'Riley', 'Aiden', 'Zoey',
+        'Owen', 'Lily', 'Elijah', 'Hannah', 'Carter', 'Nora', 'Jayden', 'Stella',
+        'Luke', 'Violet', 'Gabriel', 'Aurora', 'Isaac', 'Savannah', 'Lincoln', 'Audrey',
+        'Nathan', 'Brooklyn', 'Caleb', 'Claire', 'Leo', 'Skylar', 'Adrian', 'Lucy',
+        'Eli', 'Anna', 'Ezra', 'Samantha', 'Aaron', 'Caroline', 'Carson', 'Genesis',
+        'Hudson', 'Aaliyah', 'Connor', 'Kennedy', 'Julian', 'Kinsley', 'Landon', 'Allison'
+      ]
+    } else if (locale === 'zh-TW') {
+      return [
+        '志明', '美玲', '建國', '淑芬', '文強', '雅婷', '志偉', '怡君',
+        '俊傑', '佩珊', '家豪', '欣怡', '志強', '婉婷', '宇軒', '詩涵',
+        '浩然', '梓萱', '子軒', '雅涵', '子豪', '芷涵', '宇辰', '筱婷',
+        '志豪', '珮瑜', '文傑', '雅雯', '建宏', '惠婷', '志昇', '美惠',
+        '俊宏', '雅琪', '文傑', '佩琳', '志偉', '淑華', '建軍', '美玲',
+        '家偉', '雅惠', '志豪', '淑芬', '俊偉', '佩芸', '文華', '怡珊',
+        '建宏', '雅玲', '志強', '淑娟', '俊傑', '佩蓉', '文豪', '雅芳',
+        '家豪', '淑慧', '志偉', '佩珊', '建國', '美玲', '俊宏', '雅婷'
+      ]
+    } else {
+      // Simplified Chinese
+      return [
+        '志明', '美玲', '建国', '淑芬', '文强', '雅婷', '志伟', '怡君',
+        '俊杰', '佩珊', '家豪', '欣怡', '志强', '婉婷', '宇轩', '诗涵',
+        '浩然', '梓萱', '子轩', '雅涵', '子豪', '芷涵', '宇辰', '筱婷',
+        '志豪', '佩瑜', '文杰', '雅雯', '建宏', '惠婷', '志升', '美惠',
+        '俊宏', '雅琪', '文华', '佩琳', '志伟', '淑华', '建军', '美玲',
+        '家伟', '雅惠', '志豪', '淑芬', '俊伟', '佩芸', '文华', '怡珊',
+        '建宏', '雅玲', '志强', '淑娟', '俊杰', '佩蓉', '文豪', '雅芳',
+        '家豪', '淑慧', '志伟', '佩珊', '建国', '美玲', '俊宏', '雅婷'
+      ]
+    }
+  }
 
+  const names = getNames()
   const types: NodeType[] = ['vip', 'potential', 'referral', 'new', 'inactive']
 
   // Initialize nodes
   useEffect(() => {
     const nodeCount = 100
     const nodeData: NetworkNode[] = []
-    
+
     for (let i = 0; i < nodeCount; i++) {
       const angle = Math.random() * Math.PI * 2
       // Larger base distance to fill the entire canvas
       const baseDistance = 15 + Math.random() * 180
       const size = 2 + Math.random() * 7
       const type = types[Math.floor(Math.random() * types.length)]
-      
+
       // More connections for denser network
       const connectionCount = 3 + Math.floor(Math.random() * 5)
       const connections: string[] = []
@@ -88,7 +117,7 @@ function CustomerNetworkDemo() {
     }
 
     nodesRef.current = nodeData
-  }, [])
+  }, [locale])
 
   // Animation loop
   useEffect(() => {
@@ -111,7 +140,7 @@ function CustomerNetworkDemo() {
       // Linear uniform expansion with smooth start/end
       const progress = progressRef.current
       let easedProgress: number
-      
+
       if (progress < 0.05) {
         // Very gentle start (0-5%) - cubic ease in
         easedProgress = (progress / 0.05) * (progress / 0.05) * (progress / 0.05) * 0.05
@@ -211,7 +240,7 @@ function CustomerNetworkDemo() {
         cancelAnimationFrame(animationRef.current)
       }
     }
-  }, [typeColors, theme])
+  }, [typeColors, theme, locale])
 
   const legendItems = t.features.customerLeads?.legend ? [
     { type: 'vip' as NodeType, label: t.features.customerLeads.legend.vip },
@@ -229,7 +258,7 @@ function CustomerNetworkDemo() {
         height={400}
         className="w-full h-[320px]"
       />
-      
+
       {/* Legend */}
       {t.features.customerLeads?.legend && (
         <div className="absolute bottom-3 right-3 bg-card/90 backdrop-blur border border-border/50 rounded-lg px-3 py-2">
@@ -239,7 +268,7 @@ function CustomerNetworkDemo() {
           <div className="space-y-1.5">
             {legendItems.map(item => (
               <div key={item.type} className="flex items-center gap-2">
-                <div 
+                <div
                   className="w-2.5 h-2.5 rounded-full"
                   style={{ backgroundColor: typeColors[item.type] }}
                 />
@@ -266,101 +295,109 @@ function CustomerNetworkDemo() {
 // AI typing animation component with auto-scroll
 function AITypingDemo() {
   const { t } = useI18n()
-  const [displayText, setDisplayText] = useState("")
-  const [currentPhase, setCurrentPhase] = useState(0)
+  const [displayPhase, setDisplayPhase] = useState(0) // 0: analyzing, 1: generating, 2: completed
+  const [displayedLines, setDisplayedLines] = useState<string[]>([])
   const [isTyping, setIsTyping] = useState(true)
+  const [currentLineIndex, setCurrentLineIndex] = useState(0)
+  const [currentLineContent, setCurrentLineContent] = useState('')
   const [scrollPosition, setScrollPosition] = useState(0)
-  
-  const fullContent = `根据您提供的客户信息，我为您生成了以下专业建议方案：
 
-【客户画像分析】
-- 年龄：35岁，处于事业上升期
-- 家庭结构：已婚，育有一子（5岁）
-- 年收入：约45万元
-- 现有保障：仅有基础社保，商业保险空白
-
-【风险评估】
-该客户属于典型的"���有老、下有小"家庭支柱型，需重点关注：
-1. 重大疾病风险 - 建议保额50万起
-2. 意外伤害风险 - 需覆盖房贷余额
-3. 子女教育储备 - 建议提前规划
-
-【产品配置建议】
-一、重疾险方案
-推荐产品：多次赔付型重疾险
-保额建议：50万（覆盖3-5年收入损失）
-缴费方式：30年缴，年缴约8,500元
-
-二、医疗险方案
-推荐产品：百万医疗险 + 中端医疗险
-保障范围：住院医疗、门诊手术、特殊门诊
-年缴保费：约1,200元
-
-三、意外险方案
-推荐产品：综合意外险
-保额建议：100万身故/伤残 + 5万医疗
-年缴保费：约300元
-
-四、定期寿险方案
-推荐产品：定期寿险（保至60岁）
-保额建议：200万（覆盖房贷+家庭支出）
-年缴保费：约2,000元
-
-【预算汇总】
-年度总保费：约12,000元
-占年收入比例：2.7%（健康合理区间）
-
-【沟通话术建议】
-开场白："张先生，根据您的家庭情况，我为您量身定制了一套保障方案，既能帮您控制风险，又不会给家庭造成太大负担。"
-
-促成话术："这套方案每天只需33元，相当于一杯咖啡的价格，就能给全家带来全方位保障。"
-
-【注意事项】
-1. 投保前需确认健康告知情况
-2. 建议先配置保障型产品，再考虑理财型
-3. 可根据客户实际预算适当调整保额`
-
-  const phases = [
-    { status: t.features.aiDemo.analyzing, showContent: false },
-    { status: t.features.aiDemo.generating, showContent: true },
-    { status: t.features.aiDemo.completed, showContent: true },
+  // Build content array from i18n
+  const contentLines = [
+    t.features.aiDemo.content.customerProfile.title,
+    t.features.aiDemo.content.customerProfile.age,
+    t.features.aiDemo.content.customerProfile.family,
+    t.features.aiDemo.content.customerProfile.income,
+    t.features.aiDemo.content.customerProfile.insurance,
+    '',
+    t.features.aiDemo.content.riskAssessment.title,
+    t.features.aiDemo.content.riskAssessment.desc,
+    ...t.features.aiDemo.content.riskAssessment.points.map((p: string) => '• ' + p),
+    '',
+    t.features.aiDemo.content.recommendation.title,
+    '',
+    t.features.aiDemo.content.recommendation.criticalCare.title,
+    t.features.aiDemo.content.recommendation.criticalCare.product,
+    t.features.aiDemo.content.recommendation.criticalCare.coverage,
+    t.features.aiDemo.content.recommendation.criticalCare.payment,
+    '',
+    t.features.aiDemo.content.recommendation.medical.title,
+    t.features.aiDemo.content.recommendation.medical.product,
+    t.features.aiDemo.content.recommendation.medical.coverage,
+    t.features.aiDemo.content.recommendation.medical.payment,
+    '',
+    t.features.aiDemo.content.recommendation.accident.title,
+    t.features.aiDemo.content.recommendation.accident.product,
+    t.features.aiDemo.content.recommendation.accident.coverage,
+    t.features.aiDemo.content.recommendation.accident.payment,
+    '',
+    t.features.aiDemo.content.recommendation.life.title,
+    t.features.aiDemo.content.recommendation.life.product,
+    t.features.aiDemo.content.recommendation.life.coverage,
+    t.features.aiDemo.content.recommendation.life.payment,
+    '',
+    t.features.aiDemo.content.summary.title,
+    t.features.aiDemo.content.summary.total,
+    t.features.aiDemo.content.summary.ratio,
+    '',
+    t.features.aiDemo.content.script.title,
+    t.features.aiDemo.content.script.opening,
+    t.features.aiDemo.content.script.closing,
+    '',
+    t.features.aiDemo.content.notes.title,
+    ...t.features.aiDemo.content.notes.points.map((p: string) => '• ' + p),
   ]
-  
+
+  // Phase timing
   useEffect(() => {
-    if (currentPhase === 0) {
+    if (displayPhase === 0) {
       const timer = setTimeout(() => {
-        setCurrentPhase(1)
+        setDisplayPhase(1)
       }, 2000)
       return () => clearTimeout(timer)
     }
-    
-    if (currentPhase === 1 && displayText.length < fullContent.length) {
-      const timer = setTimeout(() => {
-        setDisplayText(fullContent.slice(0, displayText.length + 1))
-      }, 20)
-      return () => clearTimeout(timer)
-    }
-    
-    if (currentPhase === 1 && displayText.length === fullContent.length) {
-      setIsTyping(false)
-      setCurrentPhase(2)
-    }
-  }, [displayText, currentPhase, fullContent])
-  
-  // Auto-scroll effect when content exceeds container
+  }, [displayPhase])
+
+  // Typing effect for each line
   useEffect(() => {
-    if (currentPhase === 2) {
-      // Start scrolling after typing completes
+    if (displayPhase !== 1) return
+
+    if (currentLineIndex >= contentLines.length) {
+      setIsTyping(false)
+      setTimeout(() => setDisplayPhase(2), 1000)
+      return
+    }
+
+    const targetLine = contentLines[currentLineIndex]
+
+    if (currentLineContent.length < targetLine.length) {
+      const timer = setTimeout(() => {
+        setCurrentLineContent(targetLine.slice(0, currentLineContent.length + 1))
+      }, 15)
+      return () => clearTimeout(timer)
+    } else {
+      // Line completed, add to displayed lines
+      setDisplayedLines(prev => [...prev, targetLine])
+      setCurrentLineIndex(prev => prev + 1)
+      setCurrentLineContent('')
+    }
+  }, [displayPhase, currentLineIndex, currentLineContent, contentLines])
+
+  // Auto-scroll when content exceeds container
+  useEffect(() => {
+    if (displayPhase === 2) {
       const scrollTimer = setInterval(() => {
-        setScrollPosition((prev) => {
-          const maxScroll = Math.max(0, displayText.split('\n').length * 20 - 140)
+        setScrollPosition(prev => {
+          const maxScroll = Math.max(0, displayedLines.length * 20 - 120)
           if (prev >= maxScroll) {
             // Reset and start over
             setTimeout(() => {
-              setDisplayText("")
-              setCurrentPhase(0)
-              setIsTyping(true)
+              setDisplayedLines([])
+              setCurrentLineIndex(0)
+              setCurrentLineContent('')
               setScrollPosition(0)
+              setDisplayPhase(0)
+              setIsTyping(true)
             }, 2000)
             return prev
           }
@@ -369,8 +406,10 @@ function AITypingDemo() {
       }, 50)
       return () => clearInterval(scrollTimer)
     }
-  }, [currentPhase, displayText])
-  
+  }, [displayPhase, displayedLines.length])
+
+  const allLines = [...displayedLines, ...(isTyping && currentLineContent ? [currentLineContent] : [])]
+
   return (
     <div className="rounded-xl bg-background/80 border border-border p-5 overflow-hidden">
       {/* Header */}
@@ -380,36 +419,40 @@ function AITypingDemo() {
         </div>
         <div>
           <div className="text-sm font-medium text-foreground">{t.features.aiDemo.title}</div>
-          <div className="text-xs text-muted-foreground">{phases[currentPhase].status}</div>
+          <div className="text-xs text-muted-foreground">
+            {displayPhase === 0 ? t.features.aiDemo.analyzing : displayPhase === 1 ? t.features.aiDemo.generating : t.features.aiDemo.completed}
+          </div>
         </div>
       </div>
-      
+
       {/* Content area with scroll */}
       <div className="h-[160px] relative overflow-hidden">
-        {currentPhase === 0 ? (
+        {displayPhase === 0 ? (
           <div className="space-y-3">
             <div className="h-2.5 bg-muted rounded-full w-full animate-pulse" />
             <div className="h-2.5 bg-muted rounded-full w-4/5 animate-pulse" style={{ animationDelay: '0.1s' }} />
             <div className="h-2.5 bg-muted rounded-full w-3/5 animate-pulse" style={{ animationDelay: '0.2s' }} />
           </div>
         ) : (
-          <div 
+          <div
             className="text-sm text-muted-foreground whitespace-pre-wrap leading-relaxed transition-transform duration-100"
             style={{ transform: `translateY(-${scrollPosition}px)` }}
           >
-            {displayText}
+            {allLines.map((line, i) => (
+              <div key={i} className="min-h-[1.25rem]">{line}</div>
+            ))}
             {isTyping && <span className="inline-block w-0.5 h-4 bg-primary ml-0.5 animate-pulse" />}
           </div>
         )}
         {/* Fade gradient overlay */}
         <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-background/80 to-transparent pointer-events-none" />
       </div>
-      
+
       {/* Status indicator */}
       <div className="mt-4 flex items-center gap-2 pt-3 border-t border-border/50">
-        <div className={`h-2 w-2 rounded-full ${currentPhase === 2 ? 'bg-green-500' : 'bg-primary animate-pulse'}`} />
+        <div className={`h-2 w-2 rounded-full ${displayPhase === 2 ? 'bg-green-500' : 'bg-primary animate-pulse'}`} />
         <span className="text-xs text-muted-foreground">
-          {currentPhase === 2 ? t.features.aiDemo.completed : t.features.aiDemo.generating}
+          {displayPhase === 2 ? t.features.aiDemo.completed : t.features.aiDemo.generating}
         </span>
       </div>
     </div>
@@ -488,23 +531,23 @@ export function Features() {
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-2">
                   {/* Diverse real human avatars from different countries */}
-                  <img 
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" 
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
                     alt="User avatar"
                     className="w-8 h-8 rounded-full border-2 border-background object-cover"
                   />
-                  <img 
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" 
+                  <img
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face"
                     alt="User avatar"
                     className="w-8 h-8 rounded-full border-2 border-background object-cover"
                   />
-                  <img 
-                    src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&h=100&fit=crop&crop=face" 
+                  <img
+                    src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&h=100&fit=crop&crop=face"
                     alt="User avatar"
                     className="w-8 h-8 rounded-full border-2 border-background object-cover"
                   />
-                  <img 
-                    src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=face" 
+                  <img
+                    src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=face"
                     alt="User avatar"
                     className="w-8 h-8 rounded-full border-2 border-background object-cover"
                   />
