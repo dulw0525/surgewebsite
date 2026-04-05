@@ -82,8 +82,11 @@ const emailConfig = {
   port: 465,
   secure: true,
   auth: {
-    user: 'insurance@insbean.com',
-    pass: 'Infini2024!'
+    user: 'support@insbean.com',
+    pass: 'JWWW4GG0iFtGeMXj'
+  },
+  tls: {
+    rejectUnauthorized: false
   }
 };
 
@@ -127,7 +130,7 @@ async function initDatabase() {
 // Send email notification
 async function sendEmailNotification(data) {
   const mailOptions = {
-    from: '"聚流网站留言" <insurance@insbean.com>',
+    from: '"聚流网站留言" <support@insbean.com>',
     to: NOTIFY_EMAIL,
     subject: `新留言 - ${data.name} (${data.phone})`,
     html: `
