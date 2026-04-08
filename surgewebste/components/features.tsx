@@ -38,46 +38,20 @@ function CustomerNetworkDemo() {
     inactive: '#F9A8D4',  // Pink
   }
 
-  // Localized names based on current language
-  const { locale } = useI18n()
+  // Localized names - always use English names regardless of language
   const getNames = () => {
-    if (locale === 'en') {
-      return [
-        'Michael', 'Sarah', 'David', 'Emma', 'James', 'Olivia', 'William', 'Sophia',
-        'Daniel', 'Emily', 'Alex', 'Grace', 'Ryan', 'Chloe', 'Lucas', 'Mia',
-        'Ethan', 'Ava', 'Noah', 'Isabella', 'Liam', 'Charlotte', 'Benjamin', 'Amelia',
-        'Henry', 'Harper', 'Sebastian', 'Ella', 'Jack', 'Luna', 'Oliver', 'Scarlett',
-        'Jacob', 'Victoria', 'Mason', 'Aria', 'Logan', 'Riley', 'Aiden', 'Zoey',
-        'Owen', 'Lily', 'Elijah', 'Hannah', 'Carter', 'Nora', 'Jayden', 'Stella',
-        'Luke', 'Violet', 'Gabriel', 'Aurora', 'Isaac', 'Savannah', 'Lincoln', 'Audrey',
-        'Nathan', 'Brooklyn', 'Caleb', 'Claire', 'Leo', 'Skylar', 'Adrian', 'Lucy',
-        'Eli', 'Anna', 'Ezra', 'Samantha', 'Aaron', 'Caroline', 'Carson', 'Genesis',
-        'Hudson', 'Aaliyah', 'Connor', 'Kennedy', 'Julian', 'Kinsley', 'Landon', 'Allison'
-      ]
-    } else if (locale === 'zh-TW') {
-      return [
-        '志明', '美玲', '建國', '淑芬', '文強', '雅婷', '志偉', '怡君',
-        '俊傑', '佩珊', '家豪', '欣怡', '志強', '婉婷', '宇軒', '詩涵',
-        '浩然', '梓萱', '子軒', '雅涵', '子豪', '芷涵', '宇辰', '筱婷',
-        '志豪', '珮瑜', '文傑', '雅雯', '建宏', '惠婷', '志昇', '美惠',
-        '俊宏', '雅琪', '文傑', '佩琳', '志偉', '淑華', '建軍', '美玲',
-        '家偉', '雅惠', '志豪', '淑芬', '俊偉', '佩芸', '文華', '怡珊',
-        '建宏', '雅玲', '志強', '淑娟', '俊傑', '佩蓉', '文豪', '雅芳',
-        '家豪', '淑慧', '志偉', '佩珊', '建國', '美玲', '俊宏', '雅婷'
-      ]
-    } else {
-      // Simplified Chinese
-      return [
-        '志明', '美玲', '建国', '淑芬', '文强', '雅婷', '志伟', '怡君',
-        '俊杰', '佩珊', '家豪', '欣怡', '志强', '婉婷', '宇轩', '诗涵',
-        '浩然', '梓萱', '子轩', '雅涵', '子豪', '芷涵', '宇辰', '筱婷',
-        '志豪', '佩瑜', '文杰', '雅雯', '建宏', '惠婷', '志升', '美惠',
-        '俊宏', '雅琪', '文华', '佩琳', '志伟', '淑华', '建军', '美玲',
-        '家伟', '雅惠', '志豪', '淑芬', '俊伟', '佩芸', '文华', '怡珊',
-        '建宏', '雅玲', '志强', '淑娟', '俊杰', '佩蓉', '文豪', '雅芳',
-        '家豪', '淑慧', '志伟', '佩珊', '建国', '美玲', '俊宏', '雅婷'
-      ]
-    }
+    return [
+      'Michael', 'Sarah', 'David', 'Emma', 'James', 'Olivia', 'William', 'Sophia',
+      'Daniel', 'Emily', 'Alex', 'Grace', 'Ryan', 'Chloe', 'Lucas', 'Mia',
+      'Ethan', 'Ava', 'Noah', 'Isabella', 'Liam', 'Charlotte', 'Benjamin', 'Amelia',
+      'Henry', 'Harper', 'Sebastian', 'Ella', 'Jack', 'Luna', 'Oliver', 'Scarlett',
+      'Jacob', 'Victoria', 'Mason', 'Aria', 'Logan', 'Riley', 'Aiden', 'Zoey',
+      'Owen', 'Lily', 'Elijah', 'Hannah', 'Carter', 'Nora', 'Jayden', 'Stella',
+      'Luke', 'Violet', 'Gabriel', 'Aurora', 'Isaac', 'Savannah', 'Lincoln', 'Audrey',
+      'Nathan', 'Brooklyn', 'Caleb', 'Claire', 'Leo', 'Skylar', 'Adrian', 'Lucy',
+      'Eli', 'Anna', 'Ezra', 'Samantha', 'Aaron', 'Caroline', 'Carson', 'Genesis',
+      'Hudson', 'Aaliyah', 'Connor', 'Kennedy', 'Julian', 'Kinsley', 'Landon', 'Allison'
+    ]
   }
 
   const names = getNames()
@@ -117,7 +91,7 @@ function CustomerNetworkDemo() {
     }
 
     nodesRef.current = nodeData
-  }, [locale])
+  }, [])
 
   // Animation loop
   useEffect(() => {
@@ -131,38 +105,38 @@ function CustomerNetworkDemo() {
     const centerX = width / 2
     const centerY = height / 2
 
-    const cycleDuration = 16000 // 16 seconds per cycle for smoother animation
+    const cycleDuration = 20000 // 20 seconds per cycle for slower, smoother animation
 
     const animate = (currentTime: number) => {
       // Update progress (loops 0 to 1)
       progressRef.current = (currentTime % cycleDuration) / cycleDuration
 
-      // Linear uniform expansion with smooth start/end
+      // Slow uniform expansion with extended hold at maximum range
       const progress = progressRef.current
       let easedProgress: number
 
-      if (progress < 0.05) {
-        // Very gentle start (0-5%) - cubic ease in
-        easedProgress = (progress / 0.05) * (progress / 0.05) * (progress / 0.05) * 0.05
-      } else if (progress < 0.45) {
-        // Linear expansion phase (5-45%) - uniform speed
-        easedProgress = 0.05 + (progress - 0.05) * (0.95 / 0.4)
-      } else if (progress < 0.55) {
-        // Hold at expanded state (45-55%)
+      if (progress < 0.1) {
+        // Gentle start (0-10%) - smooth ease in
+        easedProgress = (progress / 0.1) * (progress / 0.1) * 0.08
+      } else if (progress < 0.5) {
+        // Slow linear expansion phase (10-50%)
+        easedProgress = 0.08 + (progress - 0.1) * (0.92 / 0.4)
+      } else if (progress < 0.7) {
+        // Hold at maximum expanded state (50-70%)
         easedProgress = 1
-      } else if (progress < 0.95) {
-        // Linear contraction phase (55-95%) - uniform speed
-        easedProgress = 1 - ((progress - 0.55) / 0.4)
+      } else if (progress < 0.9) {
+        // Slow linear contraction phase (70-90%)
+        easedProgress = 1 - ((progress - 0.7) / 0.2)
       } else {
-        // Very gentle end (95-100%) - cubic ease out
-        const endProgress = (progress - 0.95) / 0.05
-        easedProgress = 0.05 * (1 - endProgress * endProgress * endProgress)
+        // Gentle end (90-100%) - smooth ease out
+        const endProgress = (progress - 0.9) / 0.1
+        easedProgress = 0.08 * (1 - endProgress * endProgress * endProgress)
       }
 
-      // Scale: starts compact (0.25), expands to fill canvas (1.4)
-      const scale = 0.25 + easedProgress * 1.15
+      // Scale: starts compact (0.2), expands to fill canvas (1.6) - wider range
+      const scale = 0.2 + easedProgress * 1.4
       // Node size multiplier: starts small, grows larger
-      const sizeMultiplier = 0.5 + easedProgress * 0.7
+      const sizeMultiplier = 0.5 + easedProgress * 0.8
 
       // Clear canvas with theme-aware background
       ctx.fillStyle = theme === 'dark' ? '#0f1117' : '#f5f5f5'
@@ -185,9 +159,9 @@ function CustomerNetworkDemo() {
         }
       })
 
-      // Draw edges first - theme-aware line colors
-      ctx.strokeStyle = theme === 'dark' ? 'rgba(120, 130, 160, 0.35)' : 'rgba(100, 110, 140, 0.25)'
-      ctx.lineWidth = 0.8
+      // Draw edges first - theme-aware line colors (lighter and thinner)
+      ctx.strokeStyle = theme === 'dark' ? 'rgba(120, 130, 160, 0.18)' : 'rgba(100, 110, 140, 0.12)'
+      ctx.lineWidth = 0.4
       currentNodes.forEach(node => {
         node.connections.forEach(targetId => {
           const targetNode = currentNodes.find(n => n.id === targetId)
@@ -240,7 +214,7 @@ function CustomerNetworkDemo() {
         cancelAnimationFrame(animationRef.current)
       }
     }
-  }, [typeColors, theme, locale])
+  }, [typeColors, theme])
 
   const legendItems = t.features.customerLeads?.legend ? [
     { type: 'vip' as NodeType, label: t.features.customerLeads.legend.vip },
