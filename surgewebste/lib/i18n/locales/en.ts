@@ -186,11 +186,12 @@ export const en: Translations = {
       },
       {
         name: 'Professional',
-        price: '¥168',
+        price: '¥998',
         period: '/year',
         description: 'For individual practitioners',
         features: [
           'All Basic features',
+          'AI Agent Marketing',
           'Personal knowledge base',
           'Smart product proposals',
           'Smart product comparison',

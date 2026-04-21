@@ -84,6 +84,18 @@ export function Subscription() {
                         {plan.cta}
                       </Button>
                     </a>
+                  ) : plan.price === 'Free' || plan.price === '免费' || plan.price === '免費' ? (
+                    <a href="#download" className="block w-full mb-6">
+                      <Button
+                        className={`w-full mb-6 ${
+                          plan.highlighted
+                            ? "bg-foreground hover:bg-foreground/90 text-background"
+                            : "bg-muted hover:bg-muted/80 text-foreground"
+                        }`}
+                      >
+                        {plan.cta}
+                      </Button>
+                    </a>
                   ) : (
                     <Button
                       className={`w-full mb-6 ${

@@ -186,11 +186,12 @@ export const zhTW: Translations = {
       },
       {
         name: '專業版',
-        price: '¥168',
+        price: '¥998',
         period: '/年',
         description: '適合個人從業者',
         features: [
           '基礎版全部功能',
+          'AI Agent營銷',
           '個人知識庫',
           '智能產品計劃書',
           '智能產品比較報告',

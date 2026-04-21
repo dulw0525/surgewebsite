@@ -184,11 +184,12 @@ export const zhCN = {
       },
       {
         name: '专业版',
-        price: '¥168',
+        price: '¥998',
         period: '/年',
         description: '适合个人从业者',
         features: [
           '基础版全部功能',
+          'AI Agent营销',
           '个人知识库',
           '智能产品计划书',
           '智能产品比较报告',
